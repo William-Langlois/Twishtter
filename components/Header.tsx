@@ -15,6 +15,11 @@ const Header: React.FC = () => {
     <div className="left">
       <Link href="/">
         <a className="bold" data-active={isActive('/')}>
+          Twishtter
+        </a>
+      </Link>
+      <Link href="/">
+        <a className="bold" data-active={isActive('/')}>
           Feed
         </a>
       </Link>

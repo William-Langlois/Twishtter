@@ -1,6 +1,7 @@
 import React from "react";
 import Router from "next/router";
 import ReactMarkdown from "react-markdown";
+import { Post } from "@prisma/client";
 
 export type PostProps = {
   id: string;
@@ -8,9 +9,23 @@ export type PostProps = {
   author: {
     name: string;
     email: string;
+    image:string | null;
   } | null;
   content: string;
   published: boolean;
+  comments: [
+    {
+      author: {
+        name: string;
+        email: string;
+        image: string | null;
+      } | null,
+      content: string;
+      post:Post;
+      createdAt: string;
+    }
+  ] | null;
+  createdAt:string;
 };
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {

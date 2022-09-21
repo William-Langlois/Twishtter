@@ -9,6 +9,9 @@ import prisma from '../lib/prisma';
 
 export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.post.findMany({
+    orderBy:{
+      createdAt: "desc"
+    },
     where: { published: true },
     include: {
       author: {
@@ -17,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   });
   return {
-    props: { feed },
+    props: JSON.parse(JSON.stringify({ feed })),
     revalidate: 10,
   };
 };

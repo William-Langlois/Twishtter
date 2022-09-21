@@ -14,22 +14,57 @@ model Post {
   published Boolean @default(false)
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
+  comments  Comment[]
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
+
+model Comment {
+  id        String     @default(cuid()) @id
+  content   String
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  author    User?   @relation(fields: [authorId], references: [id], name: "commentAuthor")
+  authorId  String?
+  identifiedUsers User[]
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
 
 model User {
-  id            String    @default(cuid()) @id
-  name          String?
-  email         String?   @unique
-  emailVerified String?   @default("default")
-  image         String? 
+  id                String                @default(cuid()) @id
+  name              String?
+  email             String?               @unique
+  emailVerified     String?               @default("default")
+  image             String? 
+  createdAt         DateTime              @default(now()) @map(name: "created_at")
+  updatedAt         DateTime              @updatedAt @map(name: "updated_at")
+  info              UserInfo?             @relation(fields: [infoId], references: [id])
+  infoId            String?
+  posts             Post[]
+  comments          Comment[] @relation(name: "commentAuthor")
+  accounts          Account[]
+  sessions          Session[]
+  optionOverrides   OptionOverride[]
+  identifiedInComments Comment[]
+  @@map(name: "users")
+} 
+
+model OptionOverride {
+  id           String @default(cuid()) @id
+  code         String @unique
+  value        String
+  users        User[]
+  createdAt    DateTime  @default(now()) @map(name: "created_at")
+  updatedAt    DateTime  @updatedAt @map(name: "updated_at")
+  createdByRequest    String  @default("default:{}") @map(name: "createdByRequest")
+  updatedByRequest    String  @map(name: "updatedByRequest")
+}
+
+model Option {
+  id           String @default(cuid()) @id
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  info          UserInfo?   @relation(fields: [infoId], references: [id])
-  infoId        String?
-  posts         Post[]
-  accounts      Account[]
-  sessions      Session[]
-  @@map(name: "users")
 }
 
 model UserInfo {
