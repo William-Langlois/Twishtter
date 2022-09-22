@@ -153,7 +153,7 @@ const Header: React.FC = () => {
     );
     right = (
       <div className="right">
-        <Link href={"/profile/"+session.user.id?.toString()}>
+        <Link href={"/profile/"+session.user?.id?.toString()}>
             <div className='user-div'>
               <p className='user-name'>{session?.user?.name || 'N/A'}</p>
               <img src={session?.user?.image || "defaultAvatarUrl"} width="50" height="50" className="user-avatar-image" alt={session?.user?.name + "'s avatar"}/>
