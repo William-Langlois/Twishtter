@@ -17,6 +17,7 @@ export type PostProps = {
   comments: [
     {
       author: {
+        id:string;
         name: string;
         email: string;
         image: string | null;
