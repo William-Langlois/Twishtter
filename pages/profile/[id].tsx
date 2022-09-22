@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 
   return {
     paths: [
-      ...profilePaths.map(profilePage => `${profilePage.url}`)
+      ...profilePaths.map(profilePage => `${process.env.BASE_URL}${profilePage.url}`)
     ],
     fallback: false,
   };
