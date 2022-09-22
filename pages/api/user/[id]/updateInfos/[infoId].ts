@@ -21,11 +21,9 @@ export default async function handle(req, res) {
         const result = await prisma.userInfo.update({
             where:{id:String(userinfoId)},
             data: { 
-                /*
                 phone: infos.phone,
                 firstname:infos.firstname,
                 lastname:infos.lastname,
-                */
                 users: {connect:{id:userId}}
             },
         });
