@@ -53,9 +53,9 @@ model User {
 
 model UserInfo {
   id            String    @default(cuid()) @id
-  firstname     String?
-  lastname      String?
-  phone         String?
+  firstname     String    @default("")
+  lastname      String    @default("")
+  phone         String    @default("")
   users         User[]      
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
