@@ -10,6 +10,10 @@ const Header: React.FC = () => {
     router.pathname === pathname;
 
   const { data: session, status } = useSession();
+  if(!session.user.id)
+  {
+    session.user.id = "no-id";
+  }
 
   let left = (
     <div className="left">
