@@ -44,15 +44,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       }
   });
 
-  if(!user.info)
-  {
-    console.log("oui");
-    var res = await fetch(`${process.env.BASE_URL}/api/user/${user.id}/createInfos`, {
-      method:'POST'
-    });
-    await Router.push(`/profile/${user.id}`);  
-  }
-
   return {
       props:{user:JSON.parse(JSON.stringify(user))}
   };
@@ -63,6 +54,16 @@ type Props = {
 }
 
 const Blog: React.FC<Props> = (props) => { 
+
+  if(!props.user.info)
+  {
+    var res = fetch(`${process.env.BASE_URL}/api/user/${user.id}/createInfos`, {
+      method:'POST'
+    });
+    setTimeout(() => {
+      Router.push(`/profile/${props.user.id}`);  
+    }, 1);
+  }
   //user
   const [usernameState, setUsernameState] = useState(props.user?.name);
   const [emailState, setEmailState] = useState(props.user?.email);
