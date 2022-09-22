@@ -10,14 +10,12 @@ export default async function handle(req, res) {
         res.json({"error":"Forbidden"})
         return;
     }
+
     const userId = req.query.id;
     
     if (req.method === 'POST') {
         const result = await prisma.userInfo.create({
             data: { 
-                phone: "",
-                firstname: "",
-                lastname: "",
                 users: {connect:{id:userId}}
             },
         });
