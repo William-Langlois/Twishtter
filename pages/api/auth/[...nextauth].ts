@@ -7,8 +7,11 @@ import GitHubProvider from 'next-auth/providers/github';
 import prisma from '../../../lib/prisma';
 
 import GoogleProvider from "next-auth/providers/google";
-import { userAgent } from 'next/server';
-import { Engine } from '@prisma/client/runtime';
+
+export type Session = {
+  user:{id:String};
+}
+
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
@@ -48,19 +51,19 @@ const options = {
       const STRencryptedUserToken = encryptedUserToken.toString();
       console.log(STRencryptedUserToken)  
 
-        session = {
-            ...session,
-            roles:[
-              "logged-in"
-            ],
-            user: {
-                id: user.id,
-                user_token: STRencryptedUserToken,
-                ...session.user
-            },
-            access_token:STRencryptedAccessToken
-        }
-        return session
+    session = {
+      ...session,
+      roles:[
+        "logged-in"
+      ],
+      user: {
+          id: user.id,
+          user_token: STRencryptedUserToken,
+          ...session.user
+      },
+      access_token:STRencryptedAccessToken
+      }
+      return session
     }
   },
   adapter: PrismaAdapter(prisma),

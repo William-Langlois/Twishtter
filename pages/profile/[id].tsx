@@ -6,8 +6,6 @@ import Router from 'next/router';
 import { getSession, useSession } from 'next-auth/react';
 
 import prisma from '../../lib/prisma';
-import { Session } from "inspector";
-
 
 export async function getStaticPaths() {
   /*

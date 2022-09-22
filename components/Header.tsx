@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { signOut, useSession } from 'next-auth/react';
+import { SessionProvider, signOut, useSession } from 'next-auth/react';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -10,10 +10,6 @@ const Header: React.FC = () => {
     router.pathname === pathname;
 
   const { data: session, status } = useSession();
-  if(!session.user.id)
-  {
-    session.user.id = "no-id";
-  }
 
   let left = (
     <div className="left">
@@ -157,7 +153,7 @@ const Header: React.FC = () => {
     );
     right = (
       <div className="right">
-        <Link href={"/profile/"+session.user?.id?.toString()}>
+        <Link href={"/profile/"+session.user.id.toString()}>
             <div className='user-div'>
               <p className='user-name'>{session?.user?.name || 'N/A'}</p>
               <img src={session?.user?.image || "defaultAvatarUrl"} width="50" height="50" className="user-avatar-image" alt={session?.user?.name + "'s avatar"}/>
