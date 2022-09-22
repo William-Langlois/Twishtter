@@ -14,16 +14,26 @@ import { TextArea } from '@builder.io/react';
 
 
 async function deletePost(postId: string): Promise<void> {
-  await fetch(`/api/post/${postId}`, {
+  var res = await fetch(`/api/post/${postId}`, {
       method: 'DELETE',
   });
+  var response = await res.json();
+  if(response["error"]){
+    Router.push(`/error`);
+    return;
+  }
   Router.push('/');
 }
 
 async function publishPost(postId: string): Promise<void> {
-  await fetch(`/api/publish/${postId}`, {
+  var res = await fetch(`/api/publish/${postId}`, {
       method: 'PUT',
   });
+  var response = await res.json();
+  if(response["error"]){
+    Router.push(`/error`);
+    return;
+  }
   await Router.push('/');
 }
 
@@ -36,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
     include: {
       author: {
-        select: { name: true, email: true, image:true },
+        select: { id:true,name: true, email: true, image:true },
       },
       comments:{
         orderBy:{
@@ -72,13 +82,20 @@ const Post: React.FC<PostProps> = (props) => {
     e.preventDefault();
     try {
       const body = { content:newCommentContent };
-      await fetch(`/api/post/${postId}/new-comment`, {
+      var res = await fetch(`/api/post/${postId}/new-comment`, {
         method:'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+      var response = await res.json();
+      if(response["error"]){
+        Router.push(`/error`);
+        return;
+      }
+      
       setNewCommentContent('');
-      await Router.push(`/p/${postId}`);
+      Router.push(`/p/${postId}`);
+      
     } catch (error) {
       console.error(error);
     }
@@ -99,7 +116,7 @@ const Post: React.FC<PostProps> = (props) => {
     <Layout>
       <div>
         <div className='post-div'>
-          <div className='post-author'>
+          <div className='post-author' onClick={(e) => Router.push("/profile/"+props.author.id)}>
             <img src={props?.author?.image || "defaultAvatarUrl"} width="50" height="50" className="post-author-avatar-image" alt={props?.author?.name + "'s avatar"}/>
             <p className='post-author-name'>{props?.author?.name || 'an unknown author'}</p>
           </div>

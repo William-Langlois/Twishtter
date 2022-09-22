@@ -1,8 +1,7 @@
 
 import prisma from '../../../../../lib/prisma';
 import { getSession } from 'next-auth/react';
-import { connect } from 'http2';
-import {JWTmiddleware } from '../../../../../middlewares/JWT_middleware';
+import { JWTmiddleware } from '../../../../../middlewares/JWT_middleware';
 
 export default async function handle(req, res) {
     const session = await getSession({ req });
@@ -11,22 +10,19 @@ export default async function handle(req, res) {
         res.json({"error":"Forbidden"})
         return;
     }
-
-    const postId = req.query.id;
-    const {content} = req.body;
+    const userId = req.query.id;
     
     if (req.method === 'POST') {
-
-        const result = await prisma.comment.create({
+        const result = await prisma.userInfo.create({
             data: { 
-                content: content,
-                post: {connect:{id:postId}},
-                author: { connect: { email: session?.user?.email } }
+                phone: "",
+                firstname: "",
+                lastname: "",
+                users: {connect:{id:userId}}
             },
         });
         res.json(result);
-    } 
-    else {
+    } else {
         throw new Error(
             `The HTTP ${req.method} method is not supported at this route.`,
         );

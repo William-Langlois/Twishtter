@@ -1,46 +1,23 @@
 import React from "react";
 import Router from "next/router";
 import ReactMarkdown from "react-markdown";
-import { Post } from "@prisma/client";
+import { User, UserInfo } from "@prisma/client";
 
-export type PostProps = {
+export type UserProps = {
   id: string;
-  title: string;
-  author: {
-    id:string;
-    name: string;
-    email: string;
-    image:string | null;
-  } | null;
-  content: string;
-  published: boolean;
-  comments: [
-    {
-      author: {
-        name: string;
-        email: string;
-        image: string | null;
-      } | null,
-      content: string;
-      post:Post;
-      createdAt: string;
-    }
-  ] | null;
+  name: string;
+  email: string;
+  image: string;
   createdAt:string;
+  updatedAt:string;
+  info: UserInfo;
 };
 
-const Post: React.FC<{ post: PostProps }> = ({ post }) => {
-  const authorName = post.author ? post.author.name : "Unknown author";
+const User: React.FC<{ user: UserProps }> = ({ user }) => {
+  const authorName = user.name ? user.name : "Unknown author";
   return (
-    <div className="post-div" onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}>
-      <div className='post-author'>
-        <img src={post?.author?.image || "defaultAvatarUrl"} width="50" height="50" className="post-author-avatar-image" alt={post?.author?.name + "'s avatar"}/>
-        <p className='post-author-name'>{post?.author?.name || 'an unknown author'}</p>
-      </div>
-      <h2 className='post-title'>{post.title}</h2>
-      <div className='post-content'>
-        <ReactMarkdown children={post.content} />
-      </div>
+    <div className="user-div" onClick={() => Router.push("/profile/[id]", `/profile/${user.id}`)}>
+      
       <style jsx>{`
         .post-div{
           color:inherit;
@@ -93,4 +70,4 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   );
 };
 
-export default Post;
+export default User;

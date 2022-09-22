@@ -7,6 +7,8 @@ import GitHubProvider from 'next-auth/providers/github';
 import prisma from '../../../lib/prisma';
 
 import GoogleProvider from "next-auth/providers/google";
+import { userAgent } from 'next/server';
+import { Engine } from '@prisma/client/runtime';
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
@@ -23,6 +25,44 @@ const options = {
     })
     
   ],
+  callbacks: {
+
+    async session({session, token, user}) {
+      const CryptoJS = require('crypto-js');
+
+      //For access_token
+      const now = Date.now();
+      const generationDate = `${now.toString()}`;
+
+      const at_KEY = process.env.ACCESS_TOKEN_ENCRYPTION_KEY;
+      const ut_KEY = process.env.USER_TOKEN_ENCRYPTION_KEY;
+
+      const accessTokenBase =  `[TwishtterAccessToken[${user.id.toString()}[${generationDate}]]]`;
+      const userTokenBase =  `[TwishtterUserToken${user.id.toString()}[${user.roles.toString()}[${generationDate}]]]`;
+
+      const encryptedAccessToken = CryptoJS.AES.encrypt(accessTokenBase,at_KEY)
+      const STRencryptedAccessToken = encryptedAccessToken.toString();
+      console.log(STRencryptedAccessToken)
+
+      const encryptedUserToken = CryptoJS.AES.encrypt(userTokenBase,ut_KEY)
+      const STRencryptedUserToken = encryptedUserToken.toString();
+      console.log(STRencryptedUserToken)  
+
+        session = {
+            ...session,
+            roles:[
+              "logged-in"
+            ],
+            user: {
+                id: user.id,
+                user_token: STRencryptedUserToken,
+                ...session.user
+            },
+            access_token:STRencryptedAccessToken
+        }
+        return session
+    }
+  },
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET
 };

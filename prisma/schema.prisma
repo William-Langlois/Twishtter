@@ -32,23 +32,34 @@ model Comment {
 }
 
 model User {
-  id                String                @default(cuid()) @id
-  name              String?
-  email             String?               @unique
-  emailVerified     String?               @default("default")
-  image             String? 
-  createdAt         DateTime              @default(now()) @map(name: "created_at")
-  updatedAt         DateTime              @updatedAt @map(name: "updated_at")
-  info              UserInfo?             @relation(fields: [infoId], references: [id])
-  infoId            String?
-  posts             Post[]
-  comments          Comment[] @relation(name: "commentAuthor")
-  accounts          Account[]
-  sessions          Session[]
-  optionOverrides   OptionOverride[]
-  identifiedInComments Comment[]
+  id                     String                @default(cuid()) @id
+  name                   String?               
+  email                  String?               @unique
+  emailVerified          String?               @default("default")
+  image                  String? 
+  createdAt              DateTime              @default(now()) @map(name: "created_at")
+  updatedAt              DateTime              @updatedAt @map(name: "updated_at")
+  info                   UserInfo?             @relation(fields: [infoId], references: [id])
+  infoId                 String?
+  posts                  Post[]
+  comments               Comment[]             @relation(name: "commentAuthor")
+  accounts               Account[]
+  sessions               Session[]
+  roles                  String[]              @default(["unregistered"])                            
+  optionOverrides        OptionOverride[]
+  identifiedInComments   Comment[]
   @@map(name: "users")
 } 
+
+model UserInfo {
+  id            String    @default(cuid()) @id
+  firstname     String?
+  lastname      String?
+  phone         String?
+  users         User[]      
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+}
 
 model OptionOverride {
   id           String @default(cuid()) @id
@@ -66,16 +77,6 @@ model Option {
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 }
-
-model UserInfo {
-  id            String    @default(cuid()) @id
-  firstname     String?
-  lastname      String?
-  users         User[]
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-}
-
 
 model Account {
   id                 String  @id @default(cuid())

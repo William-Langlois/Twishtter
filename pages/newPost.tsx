@@ -11,11 +11,16 @@ const Draft: React.FC = () => {
     e.preventDefault();
     try {
       const body = { title, content };
-      await fetch('/api/post', {
+      var res = await fetch('/api/post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+      var response = await res.json();
+      if(response["error"]){
+        Router.push(`/error`);
+        return;
+      }
       await Router.push('/drafts');
     } catch (error) {
       console.error(error);

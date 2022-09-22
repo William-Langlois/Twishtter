@@ -153,9 +153,12 @@ const Header: React.FC = () => {
     );
     right = (
       <div className="right">
-        <p>
-          {session.user.name} ({session.user.email})
-        </p>
+        <Link href={"/profile/"+session.user.id?.toString()}>
+            <div className='user-div'>
+              <p className='user-name'>{session?.user?.name || 'N/A'}</p>
+              <img src={session?.user?.image || "defaultAvatarUrl"} width="50" height="50" className="user-avatar-image" alt={session?.user?.name + "'s avatar"}/>
+            </div>          
+        </Link>
         <Link href="/newPost">
           <button>
             <a>New post</a>
@@ -193,6 +196,23 @@ const Header: React.FC = () => {
 
           button {
             border: none;
+          }
+
+          .user-div{
+            display:flex;
+            flex-direction:row;
+            justify-content:middle;
+            align-items:center;
+          }
+  
+          .user-avatar-image {
+            border-radius:100%;
+            margin-left:0.8em;
+          }
+  
+          .user-name{
+            font-weight:600;
+            font-size: 15px;
           }
         `}</style>
       </div>
