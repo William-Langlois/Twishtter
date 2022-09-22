@@ -62,7 +62,7 @@ const Blog: React.FC<Props> = (props) => {
     });
     setTimeout(() => {
       Router.push(`/profile/${props.user.id}`);  
-    }, 1);
+    }, 1000);
   }
   //user
   const [usernameState, setUsernameState] = useState(props.user?.name);
