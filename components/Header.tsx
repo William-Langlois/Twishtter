@@ -4,6 +4,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SessionProvider, signOut, useSession } from 'next-auth/react';
 
+export type Session = {
+  user:{
+    id: String;
+  }
+}
 const Header: React.FC = () => {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
