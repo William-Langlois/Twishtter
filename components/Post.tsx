@@ -47,8 +47,29 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
           border-style:solid;
           border-radius:2em;
 
+          background:white;
+
           padding:1em;
           margin-bottom:1em;
+
+          transition: box-shadow 0.1s ease-in;
+        }
+
+        .post-div:hover{
+          box-shadow: 1px 1px 3px #aaa;
+          cursor:pointer;
+
+          color:inherit;
+          border-width:1px;
+          border-style:solid;
+          border-radius:2em;
+
+          background:white;
+
+          padding:1em;
+          margin-bottom:1em;
+
+          transition: box-shadow 0.1s ease-in;
         }
 
         .post-author{
