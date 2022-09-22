@@ -174,15 +174,7 @@ const Blog: React.FC<Props> = (props) => {
             onChange={(e) => setEmailState(e.target.value)}
             />
           </div>
-  
-          <div className="input-row">
-            <span className="input-label">Phone</span>
-            <input className="input-input"
-            value={phoneState}
-            onChange={(e) => setPhoneState(e.target.value)}
-            />
-          </div>
-  
+
           <div className="actions-div">
             <div className="action-save-div">
               <button onClick={(e) => saveChange(e,props.user.id)} className="save-button">Sauvegarder</button>
@@ -224,13 +216,6 @@ const Blog: React.FC<Props> = (props) => {
             />
           </div>
   
-          <div className="input-row">
-            <span className="input-label">Phone</span>
-            <input className="input-input"
-            value={phoneState}
-            readOnly={true}
-            />
-          </div>
         </div>
         <style jsx>{`
           .profile-page{
