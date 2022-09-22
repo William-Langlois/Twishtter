@@ -77,6 +77,7 @@ const Post: React.FC<PostProps> = (props) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+      setNewCommentContent('');
       await Router.push(`/p/${postId}`);
     } catch (error) {
       console.error(error);

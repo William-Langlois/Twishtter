@@ -31,14 +31,40 @@ export type PostProps = {
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : "Unknown author";
   return (
-    <div onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}>
-      <h2>{post.title}</h2>
-      <small>By {authorName}</small>
-      <ReactMarkdown children={post.content} />
+    <div className="post-div" onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}>
+      <div className='post-author'>
+        <img src={post?.author?.image || "defaultAvatarUrl"} width="50" height="50" className="post-author-avatar-image" alt={post?.author?.name + "'s avatar"}/>
+        <p className='post-author-name'>{post?.author?.name || 'an unknown author'}</p>
+      </div>
+      <h2 className='post-title'>{post.title}</h2>
+      <div className='post-content'>
+        <ReactMarkdown children={post.content} />
+      </div>
       <style jsx>{`
-        div {
-          color: inherit;username
-          padding: 2rem;
+        .post-div{
+          color:inherit;
+          border-width:1px;
+          border-style:solid;
+          border-radius:2em;
+
+          padding:1em;
+          margin-bottom:1em;
+        }
+
+        .post-author{
+          display:flex;
+          flex-direction:row;
+          justify-content:flex-start;
+          align-items:center;
+        }
+
+        .post-author-avatar-image {
+          border-radius:100%;
+          margin-right:0.8em;
+        }
+
+        .post-author-name{
+          font-weight:600;
         }
       `}</style>
     </div>
