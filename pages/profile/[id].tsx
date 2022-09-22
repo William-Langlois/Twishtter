@@ -57,7 +57,7 @@ const Blog: React.FC<Props> = (props) => {
 
   if(!props.user.info)
   {
-    var res = fetch(`${process.env.BASE_URL}/api/user/${user.id}/createInfos`, {
+    var res = fetch(`${process.env.BASE_URL}/api/user/${props.user.id}/createInfos`, {
       method:'POST'
     });
     setTimeout(() => {
