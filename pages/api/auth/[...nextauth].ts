@@ -45,11 +45,9 @@ const options = {
 
       const encryptedAccessToken = CryptoJS.AES.encrypt(accessTokenBase,at_KEY)
       const STRencryptedAccessToken = encryptedAccessToken.toString();
-      console.log(STRencryptedAccessToken)
 
       const encryptedUserToken = CryptoJS.AES.encrypt(userTokenBase,ut_KEY)
       const STRencryptedUserToken = encryptedUserToken.toString();
-      console.log(STRencryptedUserToken)  
 
     session = {
       ...session,

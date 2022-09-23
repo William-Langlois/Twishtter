@@ -14,8 +14,6 @@ export default async function handle(req, res) {
     const userId = req.query.id;
     const userinfoId = req.query.infoId;
     const infos = req.body;
-
-    console.log(infos);
     
     if (req.method === 'PUT') {
         const result = await prisma.userInfo.update({

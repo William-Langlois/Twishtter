@@ -5,11 +5,6 @@ import { JWTmiddleware } from '../../../../../middlewares/JWT_middleware';
 
 export default async function handle(req, res) {
     const session = await getSession({ req });
-    if(!JWTmiddleware(req,session))
-    {
-        res.json({"error":"Forbidden"})
-        return;
-    }
 
     const userId = req.query.id;
     

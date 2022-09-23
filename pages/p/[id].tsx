@@ -56,6 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           content: true, 
           author:{
             select:{
+              id:true,
               name:true,
               email:true,
               image:true
@@ -142,7 +143,7 @@ const Post: React.FC<PostProps> = (props) => {
             props.comments.map((comment,index) => {
               return(
                 <div className='comment-div' key={"comment-"+index.toString()} id={"comment-"+index.toString()}>
-                  <div className='comment-author'>
+                  <div className='comment-author' onClick={(e) => Router.push("/profile/"+comment.author.id)}>
                     <img src={comment.author.image} width="50" height="50" className="comment-author-avatar-image" alt={comment.author.name + "'s avatar"}/>
                     <p className='comment-author-name'>{comment.author.name}</p>
                   </div>
