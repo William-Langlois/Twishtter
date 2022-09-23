@@ -54,6 +54,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       method:'POST'
     });
     var response = await res.json();
+    
     infoWasCreated = (true);
   }
 
