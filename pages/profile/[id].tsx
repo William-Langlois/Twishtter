@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   */
 
     const users = await prisma.user.findMany({});
-  
+    console.log(users)
     const profilePaths = users.map((user) => ({
       params: { id:user.id.toString() },
       url:"/profile/"+user.id.toString()
