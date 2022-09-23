@@ -8,7 +8,7 @@ import { getSession } from 'next-auth/react';
 // DELETE /api/post/:id
 export default async function handle(req, res) {
   const session = await getSession({ req });
-  if(!JWTmiddleware(req,session))
+  if(!JWTmiddleware(req,session.access_token))
   {
       res.json({"error":"Forbidden"})
       return;

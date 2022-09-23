@@ -9,7 +9,8 @@ import prisma from '../../../lib/prisma';
 // Optional fields in body: content
 export default async function handle(req, res) {
   const session = await getSession({ req });
-  if(!JWTmiddleware(req,session))
+  console.log(JWTmiddleware(req,session.access_token))
+  if(!JWTmiddleware(req,session.access_token))
   {
       res.json({"error":"Forbidden"})
       return;

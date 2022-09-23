@@ -4,7 +4,7 @@ import { getSession } from 'next-auth/react';
 import { JWTmiddleware } from '../../../../middlewares/JWT_middleware';
 export default async function handle(req, res) {
     const session = await getSession({ req });
-    if(!JWTmiddleware(req,session))
+    if(!JWTmiddleware(req,session.access_token))
     {
         res.json({"error":"Forbidden"})
         return;
