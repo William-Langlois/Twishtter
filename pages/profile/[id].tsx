@@ -54,12 +54,12 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       method:'POST'
     });
     var response = await res.json();
-    
+
     infoWasCreated = (true);
   }
 
   if(!infoExist){
-    await createInfos(user.id)
+    await createInfos(user.id);
   }
   
   return {
