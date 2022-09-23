@@ -6,6 +6,8 @@ import { ApiError } from 'next/dist/server/api-utils';
 export function JWTmiddleware(request, token) {
     const CryptoJS = require('crypto-js');
     const at_KEY = process.env.ACCESS_TOKEN_ENCRYPTION_KEY;
+
+
     if(token != null && typeof(token) != typeof(undefined))
     {
         if(config.matcher.indexOf(request.url) != -1){
@@ -13,13 +15,17 @@ export function JWTmiddleware(request, token) {
         }
         else
         {
+            console.log("token:",token);
             const decryptedToken = CryptoJS.AES.decrypt(token,at_KEY).toString(CryptoJS.enc.Utf8)
-            console.log(decryptedToken);
+            console.log("decryptedToken : ",decryptedToken);
             if(decryptedToken.indexOf("TwishtterAccessToken") != -1)
             {
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
     else{
