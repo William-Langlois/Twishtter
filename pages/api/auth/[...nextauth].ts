@@ -41,7 +41,7 @@ const options = {
       const ut_KEY = process.env.USER_TOKEN_ENCRYPTION_KEY;
 
       const accessTokenBase =  `[TwishtterAccessToken[${user.id.toString()}[${generationDate}]]]`;
-      const userTokenBase =  `[TwishtterUserToken${user.id.toString()}[${user.roles.toString()}[${generationDate}]]]`;
+      const userTokenBase =  `[TwishtterUserToken${user.id.toString()}[${user.roles}[${generationDate}]]]`;
 
       const encryptedAccessToken = CryptoJS.AES.encrypt(accessTokenBase,at_KEY)
       const STRencryptedAccessToken = encryptedAccessToken.toString();
@@ -51,9 +51,9 @@ const options = {
 
     session = {
       ...session,
-      roles:user.roles,
       user: {
           id: user.id,
+          roles: user.roles,
           user_token: STRencryptedUserToken,
           ...session.user
       },
