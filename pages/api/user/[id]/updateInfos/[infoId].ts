@@ -1,7 +1,7 @@
 
-import prisma from '../../../lib/prisma';
+import prisma from '../../../../../lib/prisma';
 import { getSession } from 'next-auth/react';
-import { JWTmiddleware } from '../../../middlewares/JWT_middleware';
+import { JWTmiddleware } from '../../../../../middlewares/JWT_middleware';
 
 export default async function handle(req, res) {
     

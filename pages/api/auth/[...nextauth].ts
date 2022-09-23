@@ -31,16 +31,6 @@ const options = {
   callbacks: {
 
     async session({session, token, user}) {
-
-      if(user.info == null || typeof(user.info) == typeof(undefined))
-      {
-        var res = await fetch(`${process.env.BASE_URL}/api/user/${user.id}/createInfos`, {
-          method:'POST'
-        });
-        var response = await res.json();
-      }
-      
-
       const CryptoJS = require('crypto-js');
 
       //For access_token
@@ -58,7 +48,6 @@ const options = {
 
       const encryptedUserToken = CryptoJS.AES.encrypt(userTokenBase,ut_KEY)
       const STRencryptedUserToken = encryptedUserToken.toString();
-      
 
     session = {
       ...session,
