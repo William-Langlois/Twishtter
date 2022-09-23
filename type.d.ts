@@ -12,5 +12,6 @@ declare module 'next-auth' {
         user?: DefaultUser & {
             id: string;
         };
+        roles:String;
     }
 }
