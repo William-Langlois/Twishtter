@@ -45,7 +45,7 @@ model User {
   comments               Comment[]             @relation(name: "commentAuthor")
   accounts               Account[]
   sessions               Session[]
-  roles                  String                @default("unregistered")                            
+  roles                  String                @default("default")                            
   optionOverrides        OptionOverride[]
   identifiedInComments   Comment[]
   @@map(name: "users")

@@ -51,7 +51,7 @@ const options = {
 
     session = {
       ...session,
-      roles:"logged-in",
+      roles:user.roles,
       user: {
           id: user.id,
           user_token: STRencryptedUserToken,
